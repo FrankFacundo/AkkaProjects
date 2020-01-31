@@ -1,0 +1,12 @@
+Props is a configuration class to specify options for the 
+creation of actors, think of it as an immutable and thus freely 
+shareable recipe for creating an actor including associated 
+deployment information (e.g. which dispatcher to use, see more below). 
+Here are some examples of how to create a Props instance.
+
+Props :
+Add capabilities in objects, it prepare objects to be send in the
+distributed system (fr:système repartie).
+    We create actor by :
+        final ActorRef "Name_object" = system.actorOf("ClassActor".createActor(), "NameActor");
+UntypedAbstractActor:
