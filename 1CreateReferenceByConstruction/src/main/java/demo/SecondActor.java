@@ -5,14 +5,20 @@ import akka.actor.UntypedAbstractActor;
 
 public class SecondActor extends UntypedAbstractActor {
 
-    public static Props createActor() {
-        return Props.create(SecondActor.class, () -> {
-            return new SecondActor();
-        });
-    }
+	// Empty Constructor
+	public SecondActor() {}
 
-    @Override
-    public void onReceive(Object message) throws Throwable {
+	// Static function that creates an actor Props
+	public static Props createActor() {
+		return Props.create(SecondActor.class, () -> {
+			return new SecondActor();
+		});
+	}
 
-    }
+	@Override
+	public void onReceive(Object message) throws Throwable {
+
+	}
+	
+	
 }

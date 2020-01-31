@@ -1,0 +1,1 @@
+Note: The path to execute the "ChordProject" does not include special characters for example : "é"

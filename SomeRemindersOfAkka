@@ -1,0 +1,72 @@
+[CLASS]
+
+-Props :
+tldr: Add capabilities in objects, it prepare objects to be send in the
+distributed system (fr:système repartie).
+    We create actor by :
+        final ActorRef "Name_object" = system.actorOf("ClassActor".createActor(), "NameActor");
+Documentation:
+Props is a configuration class to specify options for the
+creation of actors, think of it as an immutable and thus freely
+shareable recipe for creating an actor including associated
+deployment information (e.g. which dispatcher to use, see more below).
+Here are some examples of how to create a Props instance.
+
+-Props.create : Create a configuration class.
+	ex:
+	
+	public static Props createClassConfiguration() {
+		return Props.create(
+			//First parameter is a Class object
+			MyActor.class, 
+			//Second parameter is a lambda function
+			() -> {	return new MyActor(); }
+		);
+	}
+
+-UntypedAbstractActor: Abstract Class to be inherit by a concrete actor.
+
+-AbstractActor : Abstract Class to be inherit by a concrete actor.
+    java.lang.Object
+        akka.actor.AbstractActor
+    Methods : createReceive
+
+UntypedAbstractActor or AbstractActor
+UntypedAbstractActor verify list (if(...){...})in runtime whereas AbstractActor has list defined in code that is compiled(.match(Class,Function)).
+Untyped actors respond to messages sent, while typed actors respond to method calls(the parameter values are the messages).
+Typed Actor Model is used in order to define strict contracts for actors that can respond to only the predefined set of messages. In this case, every message need not be encapsulated as one object; typed actors allow us to define separate methods that accept multiple inputs as defined by the contract. In Java parlance, typed actors provide the Java interface in the object-oriented world.
+
+*******************************************************************************    
+[METHODS]
+
+-ReceiveBuider:
+    tldr : Used for building a partial function for AbstractActor.createReceive().
+    java.lang.Object
+        akka.japi.pf.ReceiveBuilder
+    There is both a match on type only, and a match on type and predicate.
+    Methods : match, build
+    Inside an actor you can use it like this:
+    public Receive createReceive() {
+    return receiveBuilder()
+        .match(MyMessage.class, this::receiveFunction)
+        .build();
+    }
+
+
+-ActorSystem.actorOf: Create an actor
+
+-ActorRef.tell(msg, Sender): Sender sends a message to "ActorRef".
+
+*******************************************************************************    
+[LIBRARIES]
+
+(Logging)
+-import akka.event.LoggingAdapter;
+-import akka.event.Logging;  //GET CONTEXT
+exemple of logging:
+    private LoggingAdapter log = Logging.getLogger(getContext().getSystem(),this);  
+    log.info("["+getSelf().path().name()+"] received message from ["+ getSender().path().name() +"]");
+    
+(AbstractActor)
+To inherits from AbstractActor:
+-import akka.actor.AbstractActor; 
